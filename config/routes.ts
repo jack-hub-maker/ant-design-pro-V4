@@ -1,10 +1,10 @@
-﻿/*
- * @Descripttion: 
+/*
+ * @Descripttion:
  * @version: 1.0
- * @Author: 
+ * @Author:
  * @Date: 2021-10-08 15:46:24
  * @LastEditors: YingJie Xing
- * @LastEditTime: 2021-10-08 17:28:09
+ * @LastEditTime: 2021-10-09 10:26:14
  */
 export default [
   {
@@ -32,8 +32,20 @@ export default [
             authority: ['admin', 'user'],
             routes: [
               {
+                name: 'dashboardworkplace',
+                icon: 'table',
+                path: '/dashboardworkplace',
+                component: './DashboardWorkplace',
+              },
+              {
                 path: '/',
                 redirect: '/welcome',
+              },
+              {
+                path: '/todo',
+                name: 'todo',
+                icon: 'UnorderedListOutlined',
+                component: './Todo',
               },
               {
                 path: '/person',
@@ -75,6 +87,7 @@ export default [
                 path: '/list',
                 component: './TableList',
               },
+
               {
                 component: './404',
               },

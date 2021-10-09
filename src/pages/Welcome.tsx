@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Typography } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './Welcome.less';
+import ModalBasic from './ModalBasic';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -58,6 +59,7 @@ export default (): React.ReactNode => {
         </Typography.Text>
         <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
       </Card>
+      <ModalBasic />
     </PageContainer>
   );
 };

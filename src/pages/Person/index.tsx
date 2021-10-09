@@ -4,7 +4,7 @@
  * @Author: 
  * @Date: 2021-10-08 17:26:55
  * @LastEditors: YingJie Xing
- * @LastEditTime: 2021-10-09 10:00:07
+ * @LastEditTime: 2021-10-09 15:02:20
  * @FilePath: \ant-design-pro\src\pages\Person\index.tsx
  * Copyright 2021 YingJie Xing, All Rights Reserved. 
  */
@@ -39,11 +39,14 @@ const columns: ProColumns<TableListItem>[] = [
     {
         title: '姓名',
         dataIndex: 'name',
+        key: 'name',
     },
     {
         title: '年龄',
         dataIndex: 'age',
-        hideInSearch: true
+        key: 'age',
+        hideInSearch: true,
+
     },
 
 ];
@@ -52,7 +55,7 @@ const data = [
     { id: 2, name: 'jack', age: 28 }
 ]
 
-const index = (props:any) => {
+const Person = (props:any) => {
     console.log('props:',props);
 
     useEffect(()=>{
@@ -87,8 +90,8 @@ const index = (props:any) => {
                         showQuickJumper: true,
                     }}
                     search={{
-                        optionRender: false,
-                        collapsed: false,
+                        // optionRender: false,
+                        // collapsed: false,
                     }}
                     dateFormatter="string"
                     headerTitle="表格标题"
@@ -107,4 +110,4 @@ const index = (props:any) => {
         </PageContainer>
     );
 };
-export default connect(({person})=>({person}))(index)
+export default connect(({person})=>({person}))(Person)

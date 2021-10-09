@@ -4,7 +4,7 @@
  * @Author: 
  * @Date: 2021-10-08 15:46:24
  * @LastEditors: YingJie Xing
- * @LastEditTime: 2021-10-08 17:29:34
+ * @LastEditTime: 2021-10-09 10:24:51
  */
 export default {
   'menu.welcome': '欢迎',
@@ -59,4 +59,6 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   'menu.news': '新的测试页',
   'menu.person': '人员管理页',
+  'menu.todo': '待办事项',
+  'menu.dashboardworkplace': '工作台',
 };
