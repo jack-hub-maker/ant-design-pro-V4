@@ -4,7 +4,7 @@
  * @Author: 
  * @Date: 2021-10-08 15:46:24
  * @LastEditors: YingJie Xing
- * @LastEditTime: 2021-10-09 15:09:21
+ * @LastEditTime: 2021-10-09 19:07:03
  * @FilePath: \ant-design-pro\src\components\GlobalHeader\AvatarDropdown.tsx
  * Copyright 2021 YingJie Xing, All Rights Reserved. 
  */
@@ -39,16 +39,16 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
 
     // this.setState({todoNum},()=>{
     //   console.log('todoNum；',this.state.todoNum);
-      
+
     // })
 
     //方法二 使用model获取数据
-    const {dispatch} = this.props
+    const { dispatch } = this.props;
     dispatch({
-      type:'todo/getTodoList',
-      payload:'null'
+      type: 'todo/getTodoList',
+      payload: 'null'
     })
-    
+
   }
   onMenuClick = (event: { key: React.Key; keyPath: React.Key[]; item: React.ReactInstance }) => {
     const { key } = event;
@@ -73,8 +73,13 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
   };
 
   render(): React.ReactNode {
-    const {todoList} = this.props?.todo
-    const todoNum = todoList?.filter((item:any)=> item.status == 0).length
+    const { todoList } = this.props?.todo
+    // const todoNum = todoList.filter((item: any) => item.status === 0).length
+    const todoNum = todoList?.filter((item: any) => {
+      if (item != null) {
+        return item.status === 0
+      }
+    }).length
     const {
       currentUser = {
         avatar: '',
@@ -131,7 +136,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
   }
 }
 
-export default connect(({ user,todo }: ConnectState) => ({
+export default connect(({ user, todo }: ConnectState) => ({
   currentUser: user.currentUser,
-  todo:todo
+  todo: todo
 }))(AvatarDropdown);

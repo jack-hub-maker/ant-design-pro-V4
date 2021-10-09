@@ -4,52 +4,80 @@
  * @Author: 
  * @Date: 2021-10-09 10:18:39
  * @LastEditors: YingJie Xing
- * @LastEditTime: 2021-10-09 15:07:34
+ * @LastEditTime: 2021-10-09 19:06:33
  * @FilePath: \ant-design-pro\src\pages\Todo\index.tsx
  * Copyright 2021 YingJie Xing, All Rights Reserved. 
  */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { Modal, Button, Tooltip, Tag, Space, Menu, Dropdown, Alert, Card } from 'antd';
+import { Form, Input, Checkbox, Modal, Button, Tooltip, Tag, Space, Menu, Dropdown, Alert, Card, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined, EllipsisOutlined, DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { getTodoLists } from '@/services/todo'
+import { getTodoLists, add, edit } from '@/services/todo'
 import { connect } from 'umi'
-const status = [
-    <Alert message="待办" type="info" showIcon />,
-    <Alert message="已完成" type="success" showIcon />,
-    <Alert message="已取消" type="error" showIcon />
-]
-const columns = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-    },
-    {
-        title: '标题',
-        dataIndex: 'title',
-    },
-    {
-        title: '状态',
-        dataIndex: 'status',
-        render: (_, record: any) => {
-            return status[record.status]
-        }
-    },
-    {
-        title: '修改状态',
-        dataIndex: 'title',
-        render: () => [
-            <a key={0}>待办 </a>,
-            <a key={1}>完成 </a>,
-            <a key={2}>取消 </a>,
-        ]
-    },
-]
-//status:0待办 1完成 2取消
+import ProForm, { ProFormText } from '@ant-design/pro-form';
+// import { add } from '@umijs/deps/compiled/lodash';
+import { fixControlledValue } from 'antd/lib/input/Input';
+
 const Todo = (props: any) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const formRef = useRef<ActionType>();
+    const status = [
+        <Alert message="待办" type="info" showIcon />,
+        <Alert message="已完成" type="success" showIcon />,
+        <Alert message="已取消" type="error" showIcon />
+    ]
+    //status:0待办 1完成 2取消
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+        },
+        {
+            title: '标题',
+            dataIndex: 'title',
+        },
+        {
+            title: '状态',
+            dataIndex: 'status',
+            render: (_: any, record: any) => {
+                return status[record.status]
+            }
+        },
+        {
+            title: '修改状态',
+            render: (_: any, record: any) => {
+                let editOperation = []
+                if (record.status != 0) {
+                    editOperation.push(<a onClick={() => changeStatus(record.id, 0)} key={0}>待办 </a>)
+                }
+                if (record.status != 1) {
+                    editOperation.push(<a onClick={() => changeStatus(record.id, 1)} key={1}>完成 </a>)
+                }
+                if (record.status != 2) {
+                    editOperation.push(<a onClick={() => changeStatus(record.id, 2)} key={2}>取消 </a>)
+                }
+                return editOperation
+            }
+        },
+    ]
+    const changeStatus = async (id: any, status: any) => {
+        //调用service的方法修改状态
+        const res = await edit({ id, status })
+        if (res.code === 0) {
+            //刷新todolist
+            props.dispatch({
+                type: 'todo/getTodoList',
+                payload: null
+            })
+            message.success('添加成功')
+            setIsModalVisible(false);//关闭弹窗
+        } else {
+            message.error(res.message)
+        }
 
+        //判断执行结果
+    }
     //方法一:直接发请求获取数据
     // let  [data,setData] = useState([])
     // useEffect(async () => {
@@ -71,7 +99,31 @@ const Todo = (props: any) => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    
+    //提交表单并验证通过后执行的方法
+    const onFinish = async (value: any) => {
+        console.log('Success:', value);
+        const res = await add(value)
+        if (res.code === 0) {
+            //刷新todolist
+            props.dispatch({
+                type: 'todo/getTodoList',
+                payload: null
+            })
+            message.success('添加成功')
+            setIsModalVisible(false);//关闭弹窗
+        } else {
+            message.error(res.message)
+        }
+
+    };
+
+
+    const layout = {
+        labelCol: { span: 8 },
+        wrapperCol: { span: 16 },
+    };
+
+
     return (
         <PageContainer>
             <Card>
@@ -88,15 +140,22 @@ const Todo = (props: any) => {
                     headerTitle="待办事项列表"
                     toolBarRender={() => [
                         <Button type='primary' key="show" onClick={showModal}>
-                            <PlusOutlined />  新建
+                            <PlusOutlined />
+                            新建
                         </Button>,
                     ]}
                 />
 
-                <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                <Modal
+                    title="添加待办事项"
+                    visible={isModalVisible}
+                    onCancel={handleCancel}
+                    destroyOnClose
+                    footer={null}>
+                    <ProForm {...layout} ref={formRef} onFinish={onFinish}>
+                        <ProFormText name="todo" label="待办事项" rules={[{ required: true }]}>
+                        </ProFormText>
+                    </ProForm>
                 </Modal>
 
             </Card>
