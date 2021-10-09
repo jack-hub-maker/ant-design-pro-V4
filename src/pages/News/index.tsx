@@ -2,10 +2,13 @@
  * @Descripttion: 
  * @version: 1.0
  * @Author: 
- * @Date: 2021-10-08 16:11:56
+ * @Date: 2021-10-08 16:49:20
  * @LastEditors: xingyingjie
- * @LastEditTime: 2021-10-08 16:27:59
+ * @LastEditTime: 2021-10-08 17:12:11
+ * @FilePath: \ant-design-pro\src\pages\News\index.tsx
+ * Copyright 2021 OBKoro1, All Rights Reserved. 
  */
+
 import React, { useRef } from 'react';
 import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { Button, Tag, Space, Menu, Dropdown, Card } from 'antd';

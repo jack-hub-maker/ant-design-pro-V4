@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 
  * @Date: 2021-10-08 15:46:24
- * @LastEditors: xingyingjie
- * @LastEditTime: 2021-10-08 16:14:32
+ * @LastEditors: YingJie Xing
+ * @LastEditTime: 2021-10-08 17:29:34
  */
 export default {
   'menu.welcome': '欢迎',
@@ -58,4 +58,5 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   'menu.news': '新的测试页',
+  'menu.person': '人员管理页',
 };

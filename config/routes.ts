@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 
  * @Date: 2021-10-08 15:46:24
- * @LastEditors: xingyingjie
- * @LastEditTime: 2021-10-08 16:16:44
+ * @LastEditors: YingJie Xing
+ * @LastEditTime: 2021-10-08 17:28:09
  */
 export default [
   {
@@ -34,6 +34,12 @@ export default [
               {
                 path: '/',
                 redirect: '/welcome',
+              },
+              {
+                path: '/person',
+                name: 'person',
+                icon: 'UserOutlined',
+                component: './Person',
               },
               {
                 path: '/news',
