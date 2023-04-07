@@ -44,6 +44,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const [type, setType] = useState<string>('account');
   const intl = useIntl();
 
+  //actions测试（无需关注）
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     dispatch({
