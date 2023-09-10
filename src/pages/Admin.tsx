@@ -9,7 +9,7 @@ export default (): React.ReactNode => {
   return (
     <PageHeaderWrapper
       content={intl.formatMessage({
-        id: 'pages.admin.subPage.title121243',
+        id: 'pages.admin.subPage.title',
         defaultMessage: 'This page can only be viewed by admin',
       })}
     >
@@ -17,7 +17,7 @@ export default (): React.ReactNode => {
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',
-            defaultMessage: 'Faster and stronger heavy-duty components have been released.',
+            defaultMessage: 'Faster and str21onger heavy-duty components have been released.',
           })}
           type="success"
           showIcon
