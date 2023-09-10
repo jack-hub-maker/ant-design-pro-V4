@@ -17,7 +17,7 @@ export default (): React.ReactNode => {
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',
-            defaultMessage: 'Faster and str23onger heavy-duty components have been released.',
+            defaultMessage: 'Faster and str20onger heavy-duty components have been released.',
           })}
           type="success"
           showIcon
