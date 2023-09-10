@@ -1,13 +1,13 @@
 name: Build and Deploy
-on: # 监听 main 分支上的 push 事件
+on: # 监听 master 分支上的 push 事件
   push:
     branches:
-      - main
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # 构建环境使用 ubuntu
     steps:
-      - name: Checkout  # 将代码拉到虚拟机
+      - name: Checkout
         uses: actions/checkout@v2.3.1  
         with:
           persist-credentials: false
@@ -17,8 +17,11 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy   # 部署
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: master # 部署后提交到的分支
-          folder: dist # 这里填打包好的目录名称
+      - name: Deploy # 将打包内容发布到 github page
+        uses: JamesIves/github-pages-deploy-action@3.5.9 # 使用别人写好的 actions
+        with:  # 自定义环境变量
+          ACCESS_TOKEN: ${{ secrets.TEST2 }} # VUE_ADMIN_TEMPLATE 是我的 secret 名称，需要替换成你的
+          BRANCH: master
+          FOLDER: dist
+          REPOSITORY_NAME: https://jack-hub-maker.github.io # 这是我的 github page 仓库
+          TARGET_FOLDER: ant-design-pro-V4 # 打包的文件将放到静态服务器 github-actions-demo 目录下
