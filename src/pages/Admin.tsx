@@ -9,7 +9,7 @@ export default (): React.ReactNode => {
   return (
     <PageHeaderWrapper
       content={intl.formatMessage({
-        id: 'pages.admin.subPage.title11',
+        id: 'pages.admin.subPage.title123',
         defaultMessage: 'This page can only be viewed by admin',
       })}
     >
