@@ -14,7 +14,6 @@ jobs:
 
       - name: Install and Build # 下载依赖 打包项目
         run: |
-          cd ant-design-pro-V4/
           npm install
           npm run build
 
